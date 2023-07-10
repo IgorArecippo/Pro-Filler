@@ -32,22 +32,26 @@ def test_show_preview_empty(capfd):
 #     assert captured_output.strip() == expected_output.strip()
 
 
-# def test_show_preview_more_than_5_elements(capfd):
-#     context = {
-#         "all_files": [
-#             "file1.txt",
-#             "file2.txt", "file3.txt", "file4.txt", "file5.txt", "file6.txt"],
-#         "all_dirs": ["dir1", "dir2", "dir3", "dir4", "dir5", "dir6"]
-#     }
-#     e = "Found 6 files and 6 directories\n"
-#     e += "First 5 files: "
-#       "['file1.txt', 'file2.txt', 'file3.txt', 'file4.txt', 'file5.txt']\n"
-#     e += "First 5 directories: ['dir1', 'dir2', 'dir3', 'dir4', 'dir5']"
+def test_show_preview_more_than_5_elements(capfd):
+    context = {
+        "all_files": [
+            "file1.txt",
+            "file2.txt", "file3.txt", "file4.txt", "file5.txt", "file6.txt"],
+        "all_dirs": ["dir1", "dir2", "dir3", "dir4", "dir5", "dir6"]
+    }
 
-#     show_preview(context)
-#     captured_output = capfd.readouterr().out
+    expected_output = (
+        "Found 6 files and 6 directories\n"
+        "First 5 files: ['file1.txt', 'file2.txt', 'file3.txt', "
+        "'file4.txt', 'file5.txt']\n"
+        "First 5 directories: ['dir1', 'dir2', 'dir3', "
+        "'dir4', 'dir5']\n"
+    )
 
-#     assert captured_output.strip() == e.strip()
+    show_preview(context)
+    captured_output = capfd.readouterr().out
+
+    assert captured_output.strip() == expected_output.strip()
 
 
 def test_show_preview_exactly_5_elements(capfd):
